@@ -1,0 +1,67 @@
+@use "sass:math";
+
+$typographies: (
+    "font-size": (
+        "prefix": "font",
+        "values": (
+            "sm": $font-size-sm,
+            "md": $base-font-size,
+            "lg": $font-size-lg,
+            "xl": $font-size-xl,
+            "xxl": $font-size-xxl,
+        ),
+    ),
+    "vertical-align": (
+        "prefix": "align",
+        "values": (
+            "baseline": baseline,
+            "top": top,
+            "middle": middle,
+            "bottom": bottom,
+            "text-top": text-top,
+            "text-bottom": text-bottom,
+            "sup": sub,
+            "supper": super,
+        ),
+    ),
+    
+    "line-height": (
+        "prefix": "leading",
+        "values": (
+            "none": 1,
+            "tight": 1.25,
+            "snug": 1.375,
+            "normal": 1.5,
+            "relaxed": 1.625,
+            "loose": 2,
+        ),
+    ),
+);
+
+h1{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2{
+    font-size: 24px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+// generate utility classes
+@each $property, $map in $typographies {
+    $prefix: map-get($map, "prefix");
+    $values: map-get($map, "values");
+
+    @each $k, $v in $values {
+        @if ($k == "default") {
+            .#{$prefix} {
+                #{$property}: $v;
+            }
+        } @else {
+            .#{$prefix}-#{$k} {
+                #{$property}: $v;
+            }
+        }
+    }
+}
+

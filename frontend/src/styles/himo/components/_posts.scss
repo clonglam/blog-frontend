@@ -1,24 +1,68 @@
-.posts-lists{
+$post-line-height: 24px;
 
-    
-}
+.post-item {
+    padding: $base-padding * 2 0;
+    border-bottom: 1px solid;
+    @include themify {
+        background-color: themed("backgroundColor");
+        color:themed("textColor");
+    }
 
-.post-item{
-    .post-meta{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 5px;
-        width:100%;
+    .avater-container {
+        height: 1.5rem;
+        width: 1.5rem;
+        position: relative;
 
-        .author{
+        img {
+            overflow-clip-margin: content-box;
+            overflow: clip;
+        }
 
+        .avater-image {
+            border-radius: 50%;
+            box-sizing: border-box;
+            width: 1.5rem;
+            height: 1.5rem;
+
+         
+        }
+
+        .post-title {
+            line-height: $post-line-height;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-height: $post-line-height * 3;
+            font-size: 16px;
+            color: rgba(41, 41, 41, 1);
         }
     }
-    .post-content{
+
+    .post-content {
         display: grid;
         // grid-column: 12;
         grid-template-columns: 8fr 4fr;
-        
+
+    }
+}
+
+.content-preview {
+    -webkit-line-clamp: 3;
+    line-height: $post-line-height;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-height: $post-line-height * 3;
+    font-size: 16px;
+
+     @include themify {
+        color:themed("descriptionTextColor");
+    }
+}
+
+.tags-and-likes-container {
+    padding: $base-padding * 1.5 0 0 0;
+
+    .tags-container{
+        display: flex;
+        column-gap: 12px;
     }
 }

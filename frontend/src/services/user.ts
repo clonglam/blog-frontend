@@ -9,6 +9,7 @@ export interface User {
     email: string
     name: string
     role: UserRole
+    profile: string
     createdAt: string
     updatedAt: string
     Post: Post[]

@@ -13,7 +13,7 @@
 
   @include themify {
     color: themed("textColor");
-    background-color: themed("backgroundColor");
+    background-color: themed("headingBgColor");
   }
 
   .site-title {

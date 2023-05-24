@@ -9,6 +9,10 @@
 
 body {
   font-family: Poppins;
+  @include themify {
+    color: themed("textColor");
+    background-color: themed("backgroundColor");
+  }
 }
 
 ul {

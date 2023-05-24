@@ -2,6 +2,7 @@
 @import 'functions';
 @import 'variables';
 @import 'theme';
+@import "typography";
 
 // base & layout
 @import 'base';
@@ -15,15 +16,13 @@
 @import 'components/card';
 @import 'components/blog';
 @import 'components/button';
-@import 'components/board';
 @import 'components/tile';
 @import 'components/sidebar';
 @import 'components/navbar';
-@import 'components/dashboard';
-@import 'components/layout';
 @import 'components/breadcrumb';
 @import 'components/todos';
 @import 'components/posts';
+@import 'components/layout';
 
 // utilities (margin, padding, opacity, etc)
 @import 'utilities';

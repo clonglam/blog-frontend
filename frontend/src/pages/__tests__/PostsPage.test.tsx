@@ -38,7 +38,7 @@ vi.mock("react-router-dom", () => ({
 
 describe("Post Page", () => {
     it("should render Posts Page", async () => {
-        const wrapper = render(<PostsPage />)
+        const { container } = render(<PostsPage />)
     })
 
     it("handles Loading skelton", async () => {
@@ -64,10 +64,5 @@ describe("Post Page", () => {
         render(<PostsPage />)
 
         await screen.findByText(/error/i)
-    })
-
-    it("should render Posts List", async () => {
-        render(<PostsPage />)
-        await screen.findByLabelText("posts-lists")
     })
 })

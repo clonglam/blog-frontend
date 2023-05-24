@@ -9,7 +9,13 @@ const Layout = () => {
         <>
             <NavBar />
 
-            <Outlet />
+            <div className="layout-container container">
+                <main className="container">
+                    <Outlet />
+                </main>
+
+                <aside className="container">navigate Topic</aside>
+            </div>
         </>
     )
 }
