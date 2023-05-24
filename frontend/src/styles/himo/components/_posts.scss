@@ -1,0 +1,24 @@
+.posts-lists{
+
+    
+}
+
+.post-item{
+    .post-meta{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+        width:100%;
+
+        .author{
+
+        }
+    }
+    .post-content{
+        display: grid;
+        // grid-column: 12;
+        grid-template-columns: 8fr 4fr;
+        
+    }
+}

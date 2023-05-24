@@ -1,0 +1,188 @@
+components:
+    schemas:
+      Post:
+        type: object
+        required:
+           id
+           title
+           slug
+           content
+           published
+           userId
+           user
+        properties:
+          id:
+           type: number
+           example: 1
+          title:
+            type: string
+            example: Post Title
+          slug:
+            type: string
+            example: post-title
+          content:
+            type: string
+            example: This is post details.
+          published:
+            type: boolean
+            example: false
+          userId:
+            type: number
+            example: 1
+          user:
+            type: object
+            $ref: '#/components/schemas/User'
+              
+       
+          # collections:
+          #   type: array
+          #   $ref: '#/components/schemas/Collection'
+          # createdAt:
+          #   type: dateTime
+
+      PostParams:
+        type: object
+        required:
+          postId
+        properties:
+          postId:
+            type: number
+            example: 1
+
+      PostBody:
+        type: object
+        required:
+           title
+           slug
+           content
+           published
+           userId
+           user
+        properties:
+          title:
+            type: string
+            example: Post Title
+          slug:
+            type: string
+            example: post-title
+          content:
+            type: string
+            example: This is post details.
+          published:
+            type: boolean
+            example: false
+          userId:
+            type: number
+            example: 1
+         
+paths:
+  /api/posts:
+    get:
+      summary: Get all Posts
+      tags: 
+        - Posts
+ 
+      responses:
+        200:
+          description: Return a posts list with pagination.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        500:
+          description: Some server error
+
+    post:
+      summary: Create a Post
+      description: Create a Post.
+      tags: 
+        - Posts
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostBody'
+
+      responses:
+        200:
+          description: Return created Post.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+
+        500:
+          description: Some server error
+  
+  /api/posts/{postId}:
+    get:
+      summary: Get a Post
+      tags: 
+        - Posts
+ 
+      parameters:
+        - in: path
+          name: postId
+          required: true
+ 
+      responses:
+        200:
+          description: Return post with associated postId.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        500:
+          description: Some server error
+
+    put:
+      summary: Update a Post
+      tags: 
+        - Posts
+        
+      parameters:
+        - in: path
+          name: postId
+          required: true
+ 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostBody'
+      responses:
+        200:
+          description: The Updated Post.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        500:
+          description: Some server error
+ 
+    delete:
+      summary: Delete a post
+      tags: 
+        - Posts
+
+      parameters:
+        - in: path
+          name: postId
+          required: true
+ 
+      responses:
+        200:
+          description: The Deleted post.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        500:
+          description: Some server error
+ 
+ 

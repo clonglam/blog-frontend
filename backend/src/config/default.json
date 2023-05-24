@@ -1,0 +1,5 @@
+{
+  "jwtPrivateKey": "jwtPrivateKey",
+  "db": "mongodb://localhost/blogs",
+  "imgBucket": "photos"
+}

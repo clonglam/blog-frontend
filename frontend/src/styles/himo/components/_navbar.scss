@@ -1,0 +1,60 @@
+%flex-layout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.navbar {
+  @extend %flex-layout;
+  padding: $base-padding $base-padding * 2;
+  box-shadow: $base-box-shadow;
+
+  @include themify {
+    color: themed("textColor");
+    background-color: themed("backgroundColor");
+  }
+
+  .site-title {
+    font-size: $font-size-lg;
+  }
+
+  .container {
+    @extend %flex-layout;
+  }
+}
+
+.search-bar-container {
+  position: relative;
+  padding: 0 $base-padding ;
+  flex-grow: 1;
+}
+
+.search-bar-input {
+  position: relative;
+  flex-grow: 1;
+
+  .search-input {
+    width: 100%;
+  }
+
+  .search-button {
+    position: absolute;
+    right:0;
+    background-color: transparent;
+    border-radius: 100%;
+  }
+}
+
+.theme-toggler {
+  background-color: transparent;
+  border-radius: 100%;
+}
+
+// .branding-text {
+//   font-size: $font-size-lg;
+//   font-weight: 700;
+//   margin-right: $base-padding;
+//   cursor: pointer;
+// }

@@ -1,0 +1,64 @@
+@use 'sass:math';
+
+@mixin btn($bg-color: #e2e2e2) {
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  padding: math.div($base-padding, 2) $base-padding ;
+  border: 0;
+  border-radius: $base-border-radius;
+  background-color: $bg-color;
+  transition: 0.2s all;
+   
+   :active {
+            transform: scale(0.98);
+            /* Scaling button to 0.98 to its original size */
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+            /* Lowering the shadow */
+  }
+  svg{
+    text-align: center;
+  }
+}
+// @include themify
+
+.btn {
+  @include btn;
+
+}
+
+button{
+  @include btn
+}
+
+@each $key, $val in $colors {
+  .btn-#{$key} {
+    @include btn($val);
+    &:hover {
+      background-color: lighten($val, 5);
+    }
+  }
+  .btn-outlined-#{$key} {
+    @include btn(#fff);
+    border: $base-border-thickness solid $val;
+    &:hover {
+      background-color: $val;
+    }
+  }  
+  
+  .btn-link-#{$key} {
+    @include btn($val);
+    &:hover {
+      background-color: rgba(0,0,0,0);
+    }
+  }
+  
+  .btn-complement-#{$key} {
+    @include btn($val);
+    color: light-comp($val);
+    &:hover {
+      color: $val;
+      background-color: light-comp($val);
+    }
+  }
+}

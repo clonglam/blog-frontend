@@ -1,0 +1,164 @@
+components:
+    schemas:
+      User:
+        type: object
+        required:
+           id
+           name
+           email
+           password
+        properties:
+          id:
+           type: number
+           example: 1
+          name:
+            type: string
+            example: John
+          email:
+            type: string
+            example: demo@email.com
+              
+       
+          # collections:
+          #   type: array
+          #   $ref: '#/components/schemas/Collection'
+          # createdAt:
+          #   type: dateTime
+
+      UserParams:
+        type: object
+        required:
+          userId
+        properties:
+          userId:
+            type: number
+            example: 1
+
+      UserBody:
+        type: object
+        required:
+          name
+          email
+          password
+        properties:
+          name:
+            type: string
+            example: John
+          email:
+            type: string
+            example: demo@email.com
+          password:
+            type: string 
+            example: P@ssw0rd             
+ 
+paths:
+  /api/users:
+    get:
+      summary: Get all Users
+      tags: 
+        - Users
+ 
+      responses:
+        200:
+          description: Return a users list with pagination.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        500:
+          description: Some server error
+
+    post:
+      summary: Create a User
+      description: Create a User with a hased password
+      tags: 
+        - Users
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserBody'
+
+      responses:
+        200:
+          description: Return created User.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+        500:
+          description: Some server error
+  
+  /api/users/{userId}:
+    get:
+      summary: Get a User
+      tags: 
+        - Users
+ 
+      parameters:
+        - in: path
+          name: userId
+          required: true
+ 
+      responses:
+        200:
+          description: Return user with associated Posts that they created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        500:
+          description: Some server error
+
+    put:
+      summary: Update a User
+      tags: 
+        - Users
+        
+      parameters:
+        - in: path
+          name: userId
+          required: true
+ 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserBody'
+      responses:
+        200:
+          description: The Updated User.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        500:
+          description: Some server error
+ 
+    delete:
+      summary: Delete a user
+      tags: 
+        - Users
+
+      parameters:
+        - in: path
+          name: userId
+          required: true
+ 
+      responses:
+        200:
+          description: The Deleted user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        500:
+          description: Some server error
+ 
+ 
