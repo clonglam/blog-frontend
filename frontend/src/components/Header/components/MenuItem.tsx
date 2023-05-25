@@ -1,6 +1,22 @@
-import * as React from "react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
+
+interface Props {
+    label: string
+    path: string
+}
+
+const MenuItem = ({ label, path }: Props) => {
+    return (
+        <motion.li
+            variants={variants}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+        >
+            <Link to={path}>{label}</Link>
+        </motion.li>
+    )
+}
 
 const variants = {
     open: {
@@ -19,18 +35,4 @@ const variants = {
     },
 }
 
-interface Props {
-    label: string
-    link: string
-}
-export const MenuItem = ({ label, link }: Props) => {
-    return (
-        <motion.li
-            variants={variants}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-        >
-            <Link to={link}>{label}</Link>
-        </motion.li>
-    )
-}
+export default MenuItem

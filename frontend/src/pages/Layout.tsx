@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 
-import NavBar from "../components/Navigation"
+import NavBar from "../components/Header"
 import Cookies from "js-cookie"
 
 const Layout = () => {

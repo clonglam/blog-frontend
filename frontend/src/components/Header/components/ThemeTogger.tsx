@@ -1,7 +1,6 @@
-import React from "react"
-import useTheme from "../../hooks/useTheme"
-import { MdOutlineModeNight, MdBrightness5 } from "react-icons/md"
 import { motion } from "framer-motion"
+import { MdBrightness5, MdOutlineModeNight } from "react-icons/md"
+import useTheme from "../../../hooks/useTheme"
 
 const spring = {
     type: "spring",

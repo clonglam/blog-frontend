@@ -1,6 +1,6 @@
 import React from "react"
 import { isRouteErrorResponse, useRouteError } from "react-router-dom"
-import NavBar from "../components/Navigation"
+import NavBar from "../components/Header"
 
 const ErrorPage = () => {
     const error = useRouteError()

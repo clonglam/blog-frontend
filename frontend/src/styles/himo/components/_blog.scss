@@ -34,3 +34,27 @@
     }
   }
 }
+
+
+
+.search-bar-container {
+  position: relative;
+  padding: 0 $base-padding;
+  flex-grow: 1;
+}
+
+.search-bar-input {
+  position: relative;
+  flex-grow: 1;
+
+  .search-input {
+    width: 100%;
+  }
+
+  .search-button {
+    position: absolute;
+    right: 0;
+    background-color: transparent;
+    border-radius: 100%;
+  }
+}
