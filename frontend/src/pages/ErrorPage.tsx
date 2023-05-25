@@ -9,12 +9,12 @@ const ErrorPage = () => {
         <>
             <NavBar />
             <div>
-                <text>Oops</text>
-                <text>
+                <p>Oops</p>
+                <p>
                     {isRouteErrorResponse(error)
                         ? "This page does not exist."
                         : "An unexpected error occurred."}
-                </text>
+                </p>
             </div>
         </>
     )

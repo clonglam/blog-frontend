@@ -1,6 +1,6 @@
 import { render } from "../../tests/test-utils"
 import { screen } from "@testing-library/react"
-import PostsPage from "../PostsPage"
+import PostsPage from "../BlogPage"
 import { describe, it, vi } from "vitest"
 
 import { setupServer } from "msw/node"

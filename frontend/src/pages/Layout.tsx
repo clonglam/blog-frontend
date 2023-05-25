@@ -1,21 +1,18 @@
 import { Outlet } from "react-router-dom"
 
-import { useContext, useState } from "react"
 import NavBar from "../components/Navigation"
-import { ThemeContext } from "../context/ThemeContext"
+import Cookies from "js-cookie"
 
 const Layout = () => {
+    const sid = Cookies.get("session") || ""
+    if (sid) {
+        console.log({ isLoggedIn: true })
+    }
     return (
         <>
             <NavBar />
 
-            <div className="layout-container container">
-                <main className="container">
-                    <Outlet />
-                </main>
-
-                <aside className="container">navigate Topic</aside>
-            </div>
+            <Outlet />
         </>
     )
 }

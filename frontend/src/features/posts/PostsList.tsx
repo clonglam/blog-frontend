@@ -10,12 +10,12 @@ const PostsList = () => {
 
     if (isLoading)
         return (
-            <div>
+            <div key="loading   ">
                 <span aria-label="loading"></span>
                 {[...Array(10)].map(item => (
-                    <text key={item} aria-aria-label="loading">
+                    <p key={item} aria-label="loading">
                         loading
-                    </text>
+                    </p>
                 ))}
             </div>
         )
@@ -23,7 +23,7 @@ const PostsList = () => {
     if (error)
         return (
             <>
-                <text>There is an error .</text>
+                <p>There is an error .</p>
             </>
         )
 
@@ -53,7 +53,7 @@ interface Props {
 
 const PostItem = ({ id, title, onClickHandler, author, createdAt }: Props) => {
     return (
-        <div className="post-item" key={id} onClick={onClickHandler}>
+        <div className="post-item" onClick={onClickHandler}>
             <div className="post-content">
                 <div className="col-10-xs">
                     <h2 className="post-title">{title}</h2>
@@ -94,13 +94,13 @@ const AuthorAndDateBar = ({ author, createdAt }: IAuthorAndDateBar) => {
             />
 
             <div className="pl-1 flex items-center">
-                <text className="author-and-date align-center">
+                <p className="author-and-date align-center">
                     <span>{author?.name || "Author"}</span>
                     <span>。</span>
                     <span className="date font-sm">
                         {format(new Date(createdAt), "MMM dd")}
                     </span>
-                </text>
+                </p>
             </div>
         </div>
     )
