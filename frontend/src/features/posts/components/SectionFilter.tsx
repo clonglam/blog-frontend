@@ -1,6 +1,4 @@
-import React from "react"
-
-const SectionNavigation = () => {
+const SectionFilter = () => {
     return (
         <div className="section-navigator pt-6 border-bottom">
             SectionNavigation
@@ -8,4 +6,4 @@ const SectionNavigation = () => {
     )
 }
 
-export default SectionNavigation
+export default SectionFilter

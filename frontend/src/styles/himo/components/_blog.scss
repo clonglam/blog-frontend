@@ -1,8 +1,10 @@
 @use 'sass:math';
 
 .blog {
+  padding:$base-padding ;
+  
   .posts {
-    padding: $base-padding $base-padding;
+    padding: $base-padding*2 $base-padding;
     display: grid;
 
     grid-template-columns: repeat(1, 1fr);

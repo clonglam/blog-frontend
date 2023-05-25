@@ -6,6 +6,7 @@ import PostDetailPage from "./pages/PostDetailPage"
 import HomePage from "./pages/HomePage"
 import BlogPage from "./pages/BlogPage"
 import AboutPage from "./pages/AboutPage"
+import AddPostPage from "./features/posts/pages/AddPostPage"
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
             { index: true, element: <HomePage /> },
             { path: "blog", element: <BlogPage /> },
             { path: "/blog/:slug", element: <PostDetailPage /> },
+            { path: "/admin/blog/create", element: <AddPostPage /> },
             { path: "/about", element: <AboutPage /> },
 
             // {

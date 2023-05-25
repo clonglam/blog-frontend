@@ -14,7 +14,7 @@ const ThemeTogger = () => {
     return (
         <div
             className="theme-switch"
-            data-isOn={theme === "light"}
+            data-ison={theme === "light"}
             onClick={toggleTheme}
         >
             <motion.div className="handle" layout transition={spring}>

@@ -3,7 +3,6 @@
 $sidebar-opened-width: 204px;
 $sidebar-closed-width: 64px;
 
-
 .layout-bg {
   @include themify {
     color: themed("textColor");
@@ -11,24 +10,10 @@ $sidebar-closed-width: 64px;
   }
 }
 
-.layout-container {
-  display: flex;
-
-  main {
-    flex-grow: 1;
-    min-height: 100vh;
-    width: 100%;
-  }
-
-  aside {
-    width: 320px;
-    height: 100%;
-    display: none;
-
-    @include md {
-      display: block;
-    }
-  }
+main {
+  padding:$base-padding*2 $base-padding;
+  min-height: 100vh;
+  width: 100%;
 }
 
 section {

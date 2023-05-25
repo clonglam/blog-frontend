@@ -1,4 +1,4 @@
-import MarkDown from "../components/blog/components/Markdown"
+import MarkDown from "../features/posts/components/Markdown"
 
 // Did you know you can use tildes instead of backticks for code in markdown? ✨
 const markdown = `Here is some JavaScript code:

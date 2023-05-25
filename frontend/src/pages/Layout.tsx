@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 
-import NavBar from "../components/Header"
+import Header from "../components/Header"
 import Cookies from "js-cookie"
 
 const Layout = () => {
@@ -10,9 +10,11 @@ const Layout = () => {
     }
     return (
         <>
-            <NavBar />
+            <Header />
 
-            <Outlet />
+            <main>
+                <Outlet />
+            </main>
         </>
     )
 }
