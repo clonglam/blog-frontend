@@ -1,5 +1,5 @@
-import { SearchInput, SectionFilter } from "../features/posts"
-import PostsList from "../features/posts/PostsList"
+import { SearchInput, SectionFilter } from ".."
+import PostsList from "../PostsList"
 
 const BlogPage = () => {
     return (

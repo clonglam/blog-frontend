@@ -6,6 +6,8 @@ import { store } from "./app/store.ts"
 import { ToastContainer } from "react-toastify"
 
 import "./styles/index.scss"
+import "react-toastify/dist/ReactToastify.css"
+
 import { ThemeProvider } from "./context/ThemeContext.tsx"
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

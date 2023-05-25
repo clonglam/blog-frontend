@@ -45,10 +45,11 @@ export const postApi = createApi({
         }),
 
         getPost: build.query<Post, string>({
-            query: id => `posts/${id}`,
-            providesTags: (_result, _error, id) => [{ type: "Post", id }],
+            query: slug => `posts/${slug}`,
+            providesTags: (_result, _error, slug) => [{ type: "Post", slug }],
             // providesTags: (result, error, id) => [{ type: "Post", id }],
         }),
+
         updatePost: build.mutation<void, Pick<Post, "id"> & Partial<Post>>({
             query: ({ id, ...patch }) => ({
                 url: `posts/${id}`,
