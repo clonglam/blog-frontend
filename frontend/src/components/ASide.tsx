@@ -1,4 +1,3 @@
-import React from "react"
 import { Link } from "react-router-dom"
 
 const ASide = () => {
@@ -9,7 +8,7 @@ const ASide = () => {
                 <h2>Selected Topics</h2>
                 <div>
                     {[...Array(5)].map((item, index) => (
-                        <Link to="/" key={index}>
+                        <Link to="/" key={item}>
                             <p className="pt-1 pb-1">{`Topics ${index}`}</p>
                         </Link>
                     ))}

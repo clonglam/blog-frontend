@@ -1,7 +1,6 @@
-import React from "react"
-import { User } from "../../../services/user"
-import Avater from "../../../components/Avater"
 import { format } from "date-fns"
+import Avater from "../../../components/Avater"
+import { User } from "../../../services/user"
 
 interface Props {
     author: User

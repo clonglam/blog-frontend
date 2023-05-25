@@ -1,97 +1,84 @@
 import { Link } from "react-router-dom"
 
-// import ContactInfo from '../ContactInfo'
 import FooterTitle from "./FooterTitle"
 import MailChainForm from "./MailChainForm"
 import SocialMedia from "./SocialMedia"
-import { Box, Grid, Stack, Typography } from "@mui/material"
 
 const Footer = () => {
-  return (
-    <Grid
-    // paddingX={5}
-    // paddingY={8}
-    // width="100%"
-    // borderTop="1px Solid"
-    // borderColor="primary.500"
-    // bgColor="gray.200"
-    // templateColumns={{ base: "1", md: "55% 45%" }}
-    >
-      {footerSection.map(({ section, children }) => (
-        <Box key={section}>
-          <FooterTitle>{section}</FooterTitle>
+    return (
+        <footer>
+            {footerSection.map(({ section, children }) => (
+                <div key={section} className="footer-section">
+                    <FooterTitle>{section}</FooterTitle>
 
-          <Stack paddingY="1rem">
-            {children.map(({ label, href }, index) => (
-              <Typography
-              // fontWeight="300"
-              // color="gray.600"
-              // as={Link}
-              // to={href}
-              // key={`${label}_${index}`}
-              >
-                {label}
-              </Typography>
+                    <div className="footer-menu">
+                        {children.map(({ label, href }, index) => (
+                            <Link
+                                className="menu-item"
+                                to={href}
+                                key={`${label}_${index}`}
+                            >
+                                {label}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
             ))}
-          </Stack>
-        </Box>
-      ))}
 
-      <Box>
-        <FooterTitle>Need Help</FooterTitle>
-        {/* <ContactInfo /> */}
-      </Box>
+            <div>
+                <FooterTitle>Need Help</FooterTitle>
+            </div>
 
-      <Stack width="60%">
-        <MailChainForm />
-        <SocialMedia />
-      </Stack>
-    </Grid>
-  )
+            <div className="footer-right">
+                <MailChainForm />
+                <SocialMedia />
+            </div>
+        </footer>
+    )
 }
 
 const footerSection = [
-  {
-    section: "Customer Service",
-    children: [
-      {
-        label: "Free shipping + Returns",
-        href: "",
-      },
-      {
-        label: "Start a Return",
-        href: "",
-      },
-      {
-        label: "Return Policy",
-        href: "",
-      },
-      {
-        label: "FAQS",
-        href: "",
-      },
-      {
-        label: "Contact Us",
-        href: "",
-      },
-    ],
-  },
-  {
-    section: "About Us",
-    children: [
-      {
-        label: "About Hugo Lam",
-        href: "",
-      },
-      {
-        label: "Journal",
-        href: "",
-      },
-      {
-        label: "Testimonials",
-        href: "",
-      },
-    ],
-  },
+    {
+        section: "Customer Service",
+        children: [
+            {
+                label: "Free shipping + Returns",
+                href: "",
+            },
+            {
+                label: "Start a Return",
+                href: "",
+            },
+            {
+                label: "Return Policy",
+                href: "",
+            },
+            {
+                label: "FAQS",
+                href: "",
+            },
+            {
+                label: "Contact Us",
+                href: "",
+            },
+        ],
+    },
+    {
+        section: "About Us",
+        children: [
+            {
+                label: "About Hugo Lam",
+                href: "",
+            },
+            {
+                label: "Journal",
+                href: "",
+            },
+            {
+                label: "Testimonials",
+                href: "",
+            },
+        ],
+    },
 ]
 export default Footer

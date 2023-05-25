@@ -8,7 +8,6 @@ import { setupStore, type AppStore, type RootState } from "../app/store"
 // As a basic setup, import your same slice reducers
 
 import { setupListeners } from "@reduxjs/toolkit/dist/query"
-import { BrowserRouter } from "react-router-dom"
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.

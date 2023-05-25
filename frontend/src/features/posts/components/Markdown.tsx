@@ -1,20 +1,20 @@
 import { FC, ReactElement, useState } from "react"
 
+import rangeParser from "parse-numeric-range"
 import ReactMarkdown from "react-markdown"
 import rehypeRaw from "rehype-raw"
 import { generateSlug } from "../../../utils/generateSlug"
-import rangeParser from "parse-numeric-range"
 
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter"
 
-import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
-import tsx from "react-syntax-highlighter/dist/esm/languages/prism/tsx"
-import typescript from "react-syntax-highlighter/dist/esm/languages/prism/typescript"
-import scss from "react-syntax-highlighter/dist/esm/languages/prism/scss"
 import bash from "react-syntax-highlighter/dist/esm/languages/prism/bash"
-import markdown from "react-syntax-highlighter/dist/esm/languages/prism/markdown"
 import json from "react-syntax-highlighter/dist/esm/languages/prism/json"
 import lua from "react-syntax-highlighter/dist/esm/languages/prism/lua"
+import markdown from "react-syntax-highlighter/dist/esm/languages/prism/markdown"
+import scss from "react-syntax-highlighter/dist/esm/languages/prism/scss"
+import tsx from "react-syntax-highlighter/dist/esm/languages/prism/tsx"
+import typescript from "react-syntax-highlighter/dist/esm/languages/prism/typescript"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 SyntaxHighlighter.registerLanguage("tsx", tsx)
 SyntaxHighlighter.registerLanguage("typescript", typescript)
@@ -263,7 +263,7 @@ const BlogMarkdown: FC<BlogMarkdownProps> = ({ markdown }) => {
                 const metaHeight = metastring?.match(/x([^}]+)}/)
                 const width = metaWidth ? metaWidth[1] : "768"
                 const height = metaHeight ? metaHeight[1] : "432"
-                const isPriority = metastring?.toLowerCase().match("{priority}")
+                // const isPriority = metastring?.toLowerCase().match("{priority}")
                 const hasCaption = metastring
                     ?.toLowerCase()
                     .includes("{caption:")

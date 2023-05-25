@@ -1,12 +1,7 @@
-import { useNavigate } from "react-router-dom"
+import { SearchInput, SectionFilter } from "../features/posts"
 import PostsList from "../features/posts/PostsList"
-import { SectionFilter, SearchInput } from "../features/posts"
-
-import ASide from "../components/ASide"
 
 const BlogPage = () => {
-    const navigate = useNavigate()
-
     return (
         <section className="blog container" aria-label="blog">
             {/* <ASide /> */}

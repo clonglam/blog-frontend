@@ -1,5 +1,3 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-
 import { Post } from "./posts"
 
 export type UserRole = "USER" | "ADMIN"
@@ -17,7 +15,7 @@ export interface User {
 
 // type PostsResponse = Post[]
 
-const baseUrl = import.meta.env.VITE_BASE_URL || "http://localhost:3001/api/"
+// const baseUrl = import.meta.env.VITE_BASE_URL || "http://localhost:3001/api/"
 
 // export const postApi = createApi({
 //     baseQuery: fetchBaseQuery({ baseUrl }),

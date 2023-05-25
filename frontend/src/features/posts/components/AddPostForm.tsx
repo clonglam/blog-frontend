@@ -1,5 +1,10 @@
-import { FieldValue, useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { toast } from "react-toastify"
 import { z } from "zod"
+import TextArea from "../../../components/Form/input/TextArea"
+import TextFeild from "../../../components/Form/input/TextFeild"
+import { useAddPostMutation } from "../../../services/posts"
 
 const schema = z.object({
     title: z
@@ -16,36 +21,81 @@ const schema = z.object({
         .max(1024, "Description should not longer than 1024 letter"),
 })
 
+const defaultValues = {
+    title: "",
+    slug: "",
+    content: "",
+}
+
 type FromData = z.infer<typeof schema>
 
 function AddPostForm() {
+    const [addPost, { isLoading }] = useAddPostMutation()
+
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm()
+    } = useForm({
+        defaultValues,
+        resolver: zodResolver(schema),
+        mode: "onSubmit",
+    })
 
-    const onSubmit = async (data: FieldValue<FromData>) => {
-        console.log("data", data)
+    const onSubmit = async (data: FromData) => {
+        try {
+            await addPost(data).unwrap()
+            // setPost(initialValue)
+        } catch {
+            toast("An error occurred", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+            // theme: "light",
+        }
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Async Submit Validation</h1>
-            <label htmlFor="title">Title</label>
-            <input placeholder="title" {...register("title")} />
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
+            <h1>Create New Post</h1>
 
-            <label htmlFor="slug">Slug</label>
-            <input placeholder="slug" {...register("slug")} />
+            <TextFeild
+                register={register}
+                name="title"
+                label="Title"
+                placeholder="project title"
+                errorMessage={errors["title"]?.message as string}
+                helperText="Enter a Post title"
+            />
+            <TextFeild
+                register={register}
+                name="slug"
+                label="Slug"
+                placeholder="project-slug"
+                errorMessage={errors["slug"]?.message as string}
+                helperText={`slug should not contain space or symbol that other then -`}
+            />
 
-            <label htmlFor="content">content</label>
-            <input placeholder="content" {...register("content")} />
+            <TextArea
+                register={register}
+                textAreaProps={{ rows: 18 }}
+                name="content"
+                placeholder="Post contain in md form"
+                errorMessage={errors["content"]?.message as string}
+                helperText="accept md formate"
+                label={"Content"}
+            />
 
-            <div style={{ color: "red" }}>
-                {Object.keys(errors).length > 0 &&
-                    "There are errors, check your console."}
-            </div>
-            <input type="submit" />
+            <input
+                type="submit"
+                className="submit-button"
+                disabled={isLoading}
+            />
         </form>
     )
 }

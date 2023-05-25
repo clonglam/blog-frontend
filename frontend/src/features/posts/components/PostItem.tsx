@@ -1,4 +1,3 @@
-import React from "react"
 import { User } from "../../../services/user"
 import AuthorAndDateBar from "./AuthorAndDateBar"
 import ContentPreview from "./ContentPreview"
@@ -12,7 +11,7 @@ interface Props {
     onClickHandler: () => void
 }
 
-const PostItem = ({ id, title, onClickHandler, author, createdAt }: Props) => {
+const PostItem = ({ title, onClickHandler, author, createdAt }: Props) => {
     return (
         <div className="post-item" onClick={onClickHandler}>
             <div className="post-content">

@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { User } from "./user"
-import axios from "axios"
 
 export interface Post {
     id: number
@@ -35,6 +34,7 @@ export const postApi = createApi({
                       ]
                     : [{ type: "Post", id: "LIST" }],
         }),
+
         addPost: build.mutation<Post, Partial<Post>>({
             query: body => ({
                 url: `posts`,
@@ -43,9 +43,11 @@ export const postApi = createApi({
             }),
             invalidatesTags: [{ type: "Post", id: "LIST" }],
         }),
+
         getPost: build.query<Post, string>({
             query: id => `posts/${id}`,
-            providesTags: (result, error, id) => [{ type: "Post", id }],
+            providesTags: (_result, _error, id) => [{ type: "Post", id }],
+            // providesTags: (result, error, id) => [{ type: "Post", id }],
         }),
         updatePost: build.mutation<void, Pick<Post, "id"> & Partial<Post>>({
             query: ({ id, ...patch }) => ({
@@ -68,7 +70,9 @@ export const postApi = createApi({
                     patchResult.undo()
                 }
             },
-            invalidatesTags: (result, error, { id }) => [{ type: "Post", id }],
+            invalidatesTags: (_result, _error, { id }) => [
+                { type: "Post", id },
+            ],
         }),
         deletePost: build.mutation<{ success: boolean; id: number }, number>({
             query(id) {
@@ -77,7 +81,7 @@ export const postApi = createApi({
                     method: "DELETE",
                 }
             },
-            invalidatesTags: (result, error, id) => [{ type: "Post", id }],
+            invalidatesTags: (_result, _error, id) => [{ type: "Post", id }],
         }),
     }),
 })
