@@ -2,9 +2,10 @@ import { createBrowserRouter } from "react-router-dom"
 import Layout from "./pages/Layout"
 import ErrorPage from "./pages/ErrorPage"
 
-import PostsPage from "./pages/BlogPage"
 import PostDetailPage from "./pages/PostDetailPage"
 import HomePage from "./pages/HomePage"
+import BlogPage from "./pages/BlogPage"
+import AboutPage from "./pages/AboutPage"
 
 const router = createBrowserRouter([
     {
@@ -13,8 +14,9 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { index: true, element: <HomePage /> },
-            { path: "posts", element: <PostsPage /> },
-            { path: "/posts/:slug", element: <PostDetailPage /> },
+            { path: "blog", element: <BlogPage /> },
+            { path: "/blog/:slug", element: <PostDetailPage /> },
+            { path: "/about", element: <AboutPage /> },
 
             // {
             //   path: "/",
