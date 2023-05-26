@@ -8,6 +8,8 @@ import BlogPage from "./features/posts/pages/BlogPage"
 import AboutPage from "./pages/AboutPage"
 import AddPostPage from "./features/posts/pages/AddPostPage"
 import AdminBlog from "./features/posts/pages/AdminBlog"
+import Login from "./features/auth/Login"
+import PrivateOutlet from "./pages/PrivateOutlet"
 
 const router = createBrowserRouter([
     {
@@ -17,16 +19,19 @@ const router = createBrowserRouter([
         children: [
             { index: true, element: <HomePage /> },
             { path: "blog", element: <BlogPage /> },
-            { path: "/blog/:slug", element: <PostDetailPage /> },
-            { path: "/about", element: <AboutPage /> },
-            { path: "/admin/blog/create", element: <AddPostPage /> },
-            { path: "/admin/blog", element: <AdminBlog /> },
+            { path: "blog/:slug", element: <PostDetailPage /> },
+            { path: "about", element: <AboutPage /> },
+            { path: "login", element: <Login /> },
 
-            // {
-            //   path: "/",
-            //   element: <PrivateOutlet />,
-            //   children: [{ path: "userprofile", element: <UserProfile /> }],
-            // },
+            {
+                path: "/admin",
+                element: <PrivateOutlet />,
+                children: [
+                    { path: "", element: <Login /> },
+                    { path: "blog", element: <AddPostPage /> },
+                    { path: "blog/create", element: <AddPostPage /> },
+                ],
+            },
         ],
     },
     // {

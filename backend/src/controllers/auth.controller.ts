@@ -20,8 +20,8 @@ export async function loginHandler(req: Request<LoginInput>, res: Response) {
         if (!validPassword)
             return res.status(400).send("Invalid email or password.")
 
-        const token = generateAuthToken(user)
-        res.send(token)
+        const token = await generateAuthToken(user)
+        res.send({ user, token })
     } catch (err) {
         return res.status(400).send("Internal Error.")
     }

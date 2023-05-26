@@ -3,14 +3,16 @@ import {
     combineReducers,
     configureStore,
 } from "@reduxjs/toolkit"
-import { pokemonApi } from "../services/polemon"
-import { postApi } from "../services/posts"
+import authReducer from "../features/auth/authSlice"
+import { postApi } from "./services/posts"
+import { authApi } from "./services/auth"
 
 import { setupListeners } from "@reduxjs/toolkit/dist/query"
 
 const rootReducer = combineReducers({
-    [pokemonApi.reducerPath]: pokemonApi.reducer,
     [postApi.reducerPath]: postApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
+    auth: authReducer,
 })
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
@@ -19,7 +21,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
         preloadedState,
         middleware: getDefaultMiddleware =>
             getDefaultMiddleware().concat([
-                pokemonApi.middleware,
+                authApi.middleware,
                 postApi.middleware,
             ]),
     })

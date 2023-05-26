@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify"
 import { z } from "zod"
 import TextArea from "../../../components/Form/input/TextArea"
 import TextFeild from "../../../components/Form/input/TextFeild"
-import { useAddPostMutation } from "../../../services/posts"
+import { useAddPostMutation } from "../../../app/services/posts"
 import { useNavigate } from "react-router-dom"
 
 const schema = z.object({
@@ -17,6 +17,9 @@ const schema = z.object({
         .max(255, "Slug should not longer than 255 letter")
         .nonempty("Slug is required."),
     content: z.string().nonempty("Description is required"),
+    ogImage: z.string(),
+    description: z.string(),
+    // featured: z.boolean(),
     // .max(1024, "Description should not longer than 1024 letter"),
 })
 
@@ -36,7 +39,7 @@ function AddPostForm() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({
+    } = useForm<FromData>({
         defaultValues,
         resolver: zodResolver(schema),
         mode: "onSubmit",
@@ -45,7 +48,7 @@ function AddPostForm() {
     const onSubmit = async (data: FromData) => {
         try {
             await addPost({ ...data, userId: 1 }).unwrap()
-            naviagate("/admin/blog")
+            naviagate("/blog")
             // setPost(initialValue)
         } catch (err: any) {
             console.log("error", err)
@@ -82,6 +85,23 @@ function AddPostForm() {
                 placeholder="project-slug"
                 errorMessage={errors["slug"]?.message as string}
                 helperText={`slug should not contain space or symbol that other then -`}
+            />
+
+            <TextFeild
+                register={register}
+                name="ogImage"
+                label="ogImage"
+                placeholder="https://"
+                errorMessage={errors["ogImage"]?.message as string}
+                helperText={`ogImage should not contain space or symbol that other then -`}
+            />
+            <TextFeild
+                register={register}
+                name="description"
+                label="description"
+                placeholder="description"
+                errorMessage={errors["description"]?.message as string}
+                helperText={`description should not contain space or symbol that other then -`}
             />
 
             <TextArea

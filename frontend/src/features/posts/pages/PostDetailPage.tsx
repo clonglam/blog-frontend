@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useGetPostQuery } from "../../../services/posts"
+import { useGetPostQuery } from "../../../app/services/posts"
 import MarkDown from "../components/Markdown"
 
 // Did you know you can use tildes instead of backticks for code in markdown? ✨

@@ -1,6 +1,6 @@
 import { format } from "date-fns"
 import Avater from "../../../components/Avater"
-import { User } from "../../../services/user"
+import { User } from "../../../app/services/user"
 
 interface Props {
     author: User

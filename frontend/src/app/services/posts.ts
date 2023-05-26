@@ -7,8 +7,12 @@ export interface Post {
     slug: string
     content: string
     published: string
+    ogImage: string
     userId: number
     author: User
+    likes: number
+    watched: number
+    description: string
     createdAt: string
     updatedAt: string
 }
@@ -18,6 +22,7 @@ type PostsResponse = Post[]
 const baseUrl = import.meta.env.VITE_BASE_URL || "http://localhost:3001/api/"
 
 export const postApi = createApi({
+    reducerPath: "postApi",
     baseQuery: fetchBaseQuery({ baseUrl }),
     tagTypes: ["Post"],
     endpoints: build => ({

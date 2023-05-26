@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import Skelton from "../../components/Skelton"
-import { useGetPostsQuery } from "../../services/posts"
+import { useGetPostsQuery } from "../../app/services/posts"
 import PostItem from "./components/PostItem"
 
 const PostsList = () => {
@@ -10,35 +10,40 @@ const PostsList = () => {
     if (isLoading)
         return (
             <div key="loading">
-                <span aria-label="loading"></span>
                 {[...Array(10)].map(item => (
-                    <p key={item} aria-label="loading">
-                        loading
-                    </p>
+                    <div className="post-item" key={item}>
+                        <Skelton width="100%" />
+                    </div>
                 ))}
             </div>
         )
 
-    if (error)
-        return (
-            <>
-                <p>There is an error .</p>
-            </>
-        )
+    if (error) return <p>There is an error .</p>
 
     return (
         <div className="posts-lists">
-            <Skelton />
-            {posts?.map(({ id, title, slug, author, createdAt }) => (
-                <PostItem
-                    createdAt={createdAt}
-                    key={id}
-                    id={id}
-                    title={title}
-                    author={author}
-                    onClickHandler={() => navigate(slug)}
-                />
-            ))}
+            {posts?.map(
+                ({
+                    id,
+                    title,
+                    slug,
+                    author,
+                    createdAt,
+                    description,
+                    ogImage,
+                }) => (
+                    <PostItem
+                        ogImage={ogImage}
+                        createdAt={createdAt}
+                        key={id}
+                        id={id}
+                        title={title}
+                        author={author}
+                        description={description}
+                        onClickHandler={() => navigate(slug)}
+                    />
+                )
+            )}
         </div>
     )
 }
