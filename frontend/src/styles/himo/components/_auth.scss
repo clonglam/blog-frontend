@@ -1,0 +1,93 @@
+.login {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    margin: auto;
+
+    @include md {
+        width: 678px;
+    }
+
+    h3{
+        letter-spacing: 1.4px;
+        font-size: x-large;
+    }
+
+    
+    .login-button {
+        margin-top: 1rem;
+        width: 270px;
+        
+        @include themify {
+            background-color: themed("backgroundColor");
+            color: themed("textColor");
+        }
+    }
+    
+    .input-field-container{
+        padding:8px 0;
+        
+        label{
+            font-weight: 300;
+            margin: 0 0 4rem 0;
+    
+        }
+
+        }
+}
+
+.login-form-container {
+    min-height: 695px;
+    width: 100%;
+    box-shadow: 2px;
+    border-radius: 8px;
+
+    @include themify {
+        background-color: themed("headingBgColor");
+        color: themed("textColor");
+    }
+
+    .field-container {
+        height: 48px;
+    }
+    .login-form {
+        height: 100%;
+        padding: 44px 56px;
+        display: flex;
+        gap:5px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    input {
+        padding: 5px 0;
+        width: 270px;
+        border: 0px;
+        background-color: transparent;
+        border-bottom: 1px solid;
+
+        @include themify {
+            border-color: themed("textColor");
+        }
+    }
+}
+
+.field-container {
+    padding: $base-padding*0.5 0;
+}
+
+
+.password-field-container {
+    position: relative;
+    width: 270px;
+
+    .show-and-hide-container {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .show-and-hide-button {
+        background-color: transparent;
+    }
+}

@@ -1,5 +1,11 @@
+import BlogTable from "../components/BlogTable"
+
 const AdminBlog = () => {
-    return <div>AdminBlog</div>
+    return (
+        <div>
+            <BlogTable />
+        </div>
+    )
 }
 
 export default AdminBlog

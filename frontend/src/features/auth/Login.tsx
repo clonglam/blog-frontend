@@ -14,19 +14,32 @@ function PasswordInput({
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }) {
     const [show, setShow] = React.useState(false)
-    const handleClick = () => setShow(!show)
+    const handleClick = (e: React.MouseEvent) => {
+        e.preventDefault()
+        setShow(!show)
+    }
 
     return (
-        <div>
-            <input
-                // pr="4.5rem"
-                type={show ? "text" : "password"}
-                placeholder="Enter password"
-                name={name}
-                onChange={onChange}
-            />
-            <div>
-                <button onClick={handleClick}>{show ? "Hide" : "Show"}</button>
+        <div className="input-field-container">
+            <label>Password</label>
+
+            <div className="password-field-container ">
+                <input
+                    className="password-field"
+                    type={show ? "text" : "password"}
+                    placeholder="Enter password"
+                    name={name}
+                    onChange={onChange}
+                />
+
+                <div className="show-and-hide-container">
+                    <button
+                        className="show-and-hide-button"
+                        onClick={e => handleClick(e)}
+                    >
+                        {show ? "Hide" : "Show"}
+                    </button>
+                </div>
             </div>
         </div>
     )
@@ -35,7 +48,6 @@ function PasswordInput({
 export const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    // const toast = useToast()
 
     const [formState, setFormState] = React.useState<LoginRequest>({
         email: "",
@@ -50,41 +62,53 @@ export const Login = () => {
         setFormState(prev => ({ ...prev, [name]: value }))
 
     return (
-        <div>
+        <>
             <ToastContainer />
+            <div className="login">
+                <div className="login-form-container">
+                    <form className="login-form">
+                        {/* <Box>Hint: enter anything, or leave it blank and hit login</Box> */}
+                        <h3>Login</h3>
+                        <div className="input-field-container">
+                            <label>Email</label>
 
-            <div>
-                {/* <Box>Hint: enter anything, or leave it blank and hit login</Box> */}
-                <div>
-                    <input
-                        onChange={handleChange}
-                        name="email"
-                        type="text"
-                        placeholder="Email"
-                    />
-                </div>
+                            <div className="field-container">
+                                <input
+                                    onChange={handleChange}
+                                    name="email"
+                                    type="text"
+                                    placeholder="Email"
+                                />
+                            </div>
+                        </div>
 
-                <div>
-                    <PasswordInput onChange={handleChange} name="password" />
+                        <PasswordInput
+                            onChange={handleChange}
+                            name="password"
+                        />
+
+                        <button
+                            className="login-button"
+                            onClick={async () => {
+                                try {
+                                    const user = await login(formState).unwrap()
+                                    dispatch(setCredentials(user))
+                                    toast(`Hi ${user.user.name}`)
+                                    navigate("/admin/blog")
+                                } catch (err) {
+                                    toast("Error", {
+                                        type: "error",
+                                    })
+                                }
+                            }}
+                            disabled={isLoading}
+                        >
+                            Login
+                        </button>
+                    </form>
                 </div>
-                <button
-                    onClick={async () => {
-                        try {
-                            const user = await login(formState).unwrap()
-                            dispatch(setCredentials(user))
-                            navigate("/admin/blog")
-                        } catch (err) {
-                            toast("Error", {
-                                type: "error",
-                            })
-                        }
-                    }}
-                    disabled={isLoading}
-                >
-                    Login
-                </button>
             </div>
-        </div>
+        </>
     )
 }
 

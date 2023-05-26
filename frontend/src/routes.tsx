@@ -28,7 +28,7 @@ const router = createBrowserRouter([
                 element: <PrivateOutlet />,
                 children: [
                     { path: "", element: <Login /> },
-                    { path: "blog", element: <AddPostPage /> },
+                    { path: "blog", element: <AdminBlog /> },
                     { path: "blog/create", element: <AddPostPage /> },
                 ],
             },
