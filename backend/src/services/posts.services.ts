@@ -18,12 +18,12 @@ export async function createPost(data: Prisma.PostCreateInput) {
         return result
     } catch (e) {
         timer({ ...metricsLabels, success: "false" })
-        console.log("error", e)
+        console.log("error", e.message)
         throw e
     }
 }
 
-export async function getPost(id: number) {
+export async function getPost(slug: string) {
     const metricsLabels = {
         operation: "Get Post",
     }
@@ -32,7 +32,7 @@ export async function getPost(id: number) {
 
     try {
         const post = await prisma.post.findUniqueOrThrow({
-            where: { id },
+            where: { slug },
             include: {
                 author: true,
             },
@@ -59,6 +59,7 @@ export async function listPosts({
 
     const timer = databaseResponseTimeHistogram.startTimer()
 
+    console.log("list post")
     try {
         const result = await prisma.post.findMany({
             where: {
@@ -77,6 +78,15 @@ export async function listPosts({
                     },
                 ],
             },
+            include: {
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                    },
+                },
+            },
             skip: (page - 1) * pageSize,
             take: pageSize,
             orderBy,
@@ -84,12 +94,13 @@ export async function listPosts({
         timer({ ...metricsLabels, success: "true" })
         return result
     } catch (e) {
+        console.log(e)
         timer({ ...metricsLabels, success: "false" })
         throw e
     }
 }
 
-export async function deletePost(postId: number) {
+export async function deletePost(slug: string) {
     const metricsLabels = {
         operation: "Delete Post",
     }
@@ -98,7 +109,7 @@ export async function deletePost(postId: number) {
 
     try {
         const result = await prisma.post.delete({
-            where: { id: postId },
+            where: { slug },
         })
 
         timer({ ...metricsLabels, success: "true" })
@@ -112,10 +123,10 @@ export async function deletePost(postId: number) {
 }
 
 export async function updatePost({
-    id,
+    slug,
     data,
 }: {
-    id: number
+    slug: string
     data: Prisma.PostUpdateInput
 }) {
     const metricsLabels = {
@@ -126,7 +137,7 @@ export async function updatePost({
 
     try {
         const result = await prisma.post.update({
-            where: { id },
+            where: { slug },
             data,
         })
 

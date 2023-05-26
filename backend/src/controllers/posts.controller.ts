@@ -19,20 +19,25 @@ export async function createPostHandler(
     req: Request<{}, {}, CreatePostInput["body"]>,
     res: Response
 ) {
-    const { userId, ...rest } = req.body
+    const { userId, collectionIds, ...rest } = req.body
 
     const data = {
         ...rest,
         author: {
             connect: { id: userId },
         },
+        // collections: {
+        //     connect: { id: collectionIds },
+        // },
     }
 
     try {
         const postRes = await createPost(data)
         return res.send(postRes)
     } catch (err) {
-        return res.sendStatus(400)
+        if (err.code === "P2002")
+            return res.status(400).send("slug should be unique")
+        return res.status(400).send(err.message)
     }
 }
 
@@ -42,6 +47,7 @@ export async function listPostsHandler(
 ) {
     try {
         const posts = await listPosts(req.query)
+
         return res.send(posts)
     } catch (err) {
         return res.sendStatus(400)
@@ -53,7 +59,7 @@ export async function getPostHandler(
     res: Response<Post | null>
 ) {
     try {
-        const post = await getPost(parseInt(req.params.postId))
+        const post = await getPost(req.params.slug)
         return res.send(post)
     } catch (err) {
         return res.sendStatus(400)
@@ -66,7 +72,7 @@ export async function updatePostHandler(
 ) {
     const { userId, ...rest } = req.body
     const input = {
-        id: parseInt(req.params.postId),
+        slug: req.params.slug,
         data: {
             ...rest,
             author: {
@@ -90,7 +96,7 @@ export async function deletePostHandler(
     res: Response
 ) {
     try {
-        const post = await deletePost(parseInt(req.params.postId))
+        const post = await deletePost(req.params.slug)
         return res.send(post)
     } catch (err) {
         return res.sendStatus(400)

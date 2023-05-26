@@ -30,6 +30,28 @@ export async function createUser(input: CreateUserInput["body"]) {
     }
 }
 
+export async function getUserByEmail({ email }: { email: string }) {
+    const metricsLabels = {
+        operation: "Get User By Email",
+    }
+
+    const timer = databaseResponseTimeHistogram.startTimer()
+
+    console.log("emnail", email)
+    try {
+        const user = await prisma.user.findUnique({
+            where: { email },
+        })
+
+        timer({ ...metricsLabels, success: "true" })
+
+        return user
+    } catch (e) {
+        timer({ ...metricsLabels, success: "false" })
+        throw e
+    }
+}
+
 export async function getUser({ userId }: GetUserInput["params"]) {
     const metricsLabels = {
         operation: "Get User",
@@ -42,7 +64,7 @@ export async function getUser({ userId }: GetUserInput["params"]) {
         const user = await prisma.user.findUnique({
             where: { id },
             include: {
-                Post: true,
+                posts: true,
             },
         })
 

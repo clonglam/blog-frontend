@@ -8,10 +8,15 @@ const PostBody = z.object({
     content: z.string({
         required_error: "Content is required",
     }),
+    description: z.string(),
+    ogImage: z.string().optional(),
+    featured: z.boolean(),
     published: z.boolean().optional(),
+
     userId: z.number({
         required_error: "userId is required",
     }),
+    collectionIds: z.array(z.number()),
 })
 
 const payload = {
@@ -20,8 +25,8 @@ const payload = {
 
 const params = {
     params: z.object({
-        postId: z.string({
-            required_error: "postId is required.",
+        slug: z.string({
+            required_error: "slug is required.",
         }),
     }),
 }
