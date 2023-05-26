@@ -13,22 +13,21 @@ import {
     listPosts,
     updatePost,
 } from "../services/posts.services"
-import { Post } from "@prisma/client"
+import { Post, Prisma } from "@prisma/client"
+import prisma from "../libs/prisma"
+import session from "express-session"
 
 export async function createPostHandler(
     req: Request<{}, {}, CreatePostInput["body"]>,
     res: Response
 ) {
-    const { userId, collectionIds, ...rest } = req.body
+    const { userId, categoryIds, ...rest } = req.body
 
     const data = {
         ...rest,
         author: {
             connect: { id: userId },
         },
-        // collections: {
-        //     connect: { id: collectionIds },
-        // },
     }
 
     try {
@@ -59,7 +58,7 @@ export async function getPostHandler(
     res: Response<Post | null>
 ) {
     try {
-        const post = await getPost(req.params.slug)
+        const post = await getPost(parseInt(req.params.postId))
         return res.send(post)
     } catch (err) {
         return res.sendStatus(400)
@@ -70,17 +69,17 @@ export async function updatePostHandler(
     req: Request<UpdatePostInput["params"], UpdatePostInput["body"]>,
     res: Response<Post>
 ) {
-    const { userId, ...rest } = req.body
+    const { userId, categoryIds, ...rest } = req.body
     const input = {
-        slug: req.params.slug,
+        postId: parseInt(req.params.postId),
         data: {
             ...rest,
             author: {
                 connect: {
-                    id: userId,
+                    id: 1,
                 },
             },
-        },
+        } as Prisma.PostUpdateInput,
     }
 
     try {
@@ -96,7 +95,7 @@ export async function deletePostHandler(
     res: Response
 ) {
     try {
-        const post = await deletePost(req.params.slug)
+        const post = await deletePost(parseInt(req.params.postId))
         return res.send(post)
     } catch (err) {
         return res.sendStatus(400)

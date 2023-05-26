@@ -11,6 +11,7 @@ import homeRoutes from "../routes/index"
 import posts from "../routes/posts"
 import users from "../routes/users"
 import auth from "../routes/auth"
+import category from "../routes/category"
 // import customers from "../routes/customers"
 // import auth from "../routes/auth"
 // import genres from "../routes/genres"
@@ -29,6 +30,7 @@ export default function (app: Express, port: number) {
     app.use("/api/healthcheck", healthCheck)
     app.use("/api/posts", posts)
     app.use("/api/users", users)
+    app.use("/api/category", category)
     swaggerDocs(app, port)
     // app.use("/api/genres", genres)
     // app.use("/api/movies", movies)

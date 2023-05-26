@@ -8,6 +8,31 @@ async function main() {
 
     const hashedPassword = await bcrypt.hash("password", salt)
 
+    const typescript = await prisma.category.upsert({
+        where: { slug: "typescript" },
+        update: {},
+        create: {
+            name: "Typescript",
+            slug: "typescript",
+        },
+    })
+    const reactjs = await prisma.category.upsert({
+        where: { slug: "reactjs" },
+        update: {},
+        create: {
+            name: "ReactJs",
+            slug: "reactjs",
+        },
+    })
+    const codeQuality = await prisma.category.upsert({
+        where: { slug: "code-quality" },
+        update: {},
+        create: {
+            name: "Code Quality",
+            slug: "code-quality",
+        },
+    })
+
     const alice = await prisma.user.upsert({
         where: { email: "hugolam922@gmail.com" },
         update: {

@@ -1,17 +1,17 @@
-import { CreatePostInput, ListPostsInput } from "./../schema/post"
+import { CreateCategoryInput, ListCategorysInput } from "../schema/category"
 import { Prisma } from "@prisma/client"
 import prisma from "../libs/prisma"
 import { databaseResponseTimeHistogram } from "../utils/metrics"
 
-export async function createPost(data: Prisma.PostCreateInput) {
+export async function createCategory(data: Prisma.CategoryCreateInput) {
     const metricsLabels = {
-        operation: "Create Post",
+        operation: "Create Category",
     }
 
     const timer = databaseResponseTimeHistogram.startTimer()
 
     try {
-        const result = await prisma.post.create({ data })
+        const result = await prisma.category.create({ data })
 
         timer({ ...metricsLabels, success: "true" })
 
@@ -23,54 +23,65 @@ export async function createPost(data: Prisma.PostCreateInput) {
     }
 }
 
-export async function getPost(postId: number) {
+export async function getCategory(categoryId: number) {
     const metricsLabels = {
-        operation: "Get Post",
+        operation: "Get Category",
     }
 
     const timer = databaseResponseTimeHistogram.startTimer()
 
     try {
-        const post = await prisma.post.findUniqueOrThrow({
-            where: { id: postId },
+        const category = await prisma.category.findUniqueOrThrow({
+            where: { id: categoryId },
             include: {
-                author: true,
+                posts: {
+                    include: {
+                        post: {
+                            include: {
+                                author: {
+                                    select: { name: true },
+                                },
+                            },
+                        },
+                    },
+                },
             },
         })
 
         timer({ ...metricsLabels, success: "true" })
 
-        return post
+        return category
     } catch (e) {
         timer({ ...metricsLabels, success: "false" })
         throw e
     }
 }
 
-export async function listPosts({
+export async function listCategorys({
     pageSize = 10,
     page = 1,
     orderBy = { createdAt: "desc" },
     filter = "",
-}: ListPostsInput["query"]) {
+}: ListCategorysInput["query"]) {
     const metricsLabels = {
-        operation: "List Posts",
+        operation: "List Categorys",
     }
 
     const timer = databaseResponseTimeHistogram.startTimer()
 
+    console.log("list category")
     try {
-        const result = await prisma.post.findMany({
+        const result = await prisma.category.findMany({
             where: {
                 OR: [
                     {
-                        title: {
+                        name: {
                             contains: filter,
                             mode: "insensitive",
                         },
                     },
                     {
-                        content: {
+                        slug: {
                             contains: filter,
                             mode: "insensitive",
                         },
@@ -78,17 +89,14 @@ export async function listPosts({
                 ],
             },
             include: {
-                author: {
-                    select: {
-                        id: true,
-                        name: true,
-                        email: true,
+                posts: {
+                    include: {
+                        post: true,
                     },
                 },
             },
             skip: (page - 1) * pageSize,
             take: pageSize,
-            orderBy,
         })
         timer({ ...metricsLabels, success: "true" })
         return result
@@ -99,16 +107,16 @@ export async function listPosts({
     }
 }
 
-export async function deletePost(postId: number) {
+export async function deleteCategory(slug: string) {
     const metricsLabels = {
-        operation: "Delete Post",
+        operation: "Delete Category",
     }
 
     const timer = databaseResponseTimeHistogram.startTimer()
 
     try {
-        const result = await prisma.post.delete({
-            where: { id: postId },
+        const result = await prisma.category.delete({
+            where: { slug },
         })
 
         timer({ ...metricsLabels, success: "true" })
@@ -121,22 +129,22 @@ export async function deletePost(postId: number) {
     }
 }
 
-export async function updatePost({
-    postId,
+export async function updateCategory({
+    categoryId,
     data,
 }: {
-    postId: number
-    data: Prisma.PostUpdateInput
+    categoryId: number
+    data: Prisma.CategoryUpdateInput
 }) {
     const metricsLabels = {
-        operation: "Update Post",
+        operation: "Update Category",
     }
 
     const timer = databaseResponseTimeHistogram.startTimer()
 
     try {
-        const result = await prisma.post.update({
-            where: { id: postId },
+        const result = await prisma.category.update({
+            where: { id: categoryId },
             data,
         })
 

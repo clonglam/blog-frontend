@@ -18,7 +18,7 @@ import validateResource from "../middleware/validateResource"
 
 const router = express.Router()
 
-router.get("/:slug", validateResource(getPostSchema), getPostHandler)
+router.get("/:postId", validateResource(getPostSchema), getPostHandler)
 
 router.get("/", validateResource(listPostsSchema), listPostsHandler)
 
